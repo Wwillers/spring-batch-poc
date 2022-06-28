@@ -36,31 +36,6 @@ public class BatchConfig {
     }
 
     @Bean
-    public Job helloWorldJob() {
-        return jobBuilderFactory
-                   .get("helloWorldJob")
-                   .start(printHelloWorld())
-                   .incrementer(new RunIdIncrementer())
-                   .build();
-    }
-
-    private Step printHelloWorld() {
-        return stepBuilderFactory
-                   .get("printHelloWorld")
-                   .tasklet(helloWorldTasklet(null))
-                   .build();
-    }
-
-    @Bean
-    @StepScope
-    public Tasklet helloWorldTasklet(@Value("#{jobParameters['name']}") String name) {
-        return (stepContribution, chunkContext) -> {
-            System.out.printf("Hello World, %s!%n", name);
-            return RepeatStatus.FINISHED;
-        };
-    }
-
-    @Bean
     public Job printEvenOdd() {
         return jobBuilderFactory
                    .get("printEvenOdd")
